@@ -15,6 +15,9 @@ public class RulesProcessor implements IRulesProcessor {
 		annotations = new ArrayList<String>();
 		if (device.getDeviceType().equalsIgnoreCase("HVACSYSTEM"))
 			annotations.add("HVAC");
+		if (device.getDeviceModel().contains("ColourBeam"))
+			annotations.add("Printer");
+		System.out.println(annotations);
 		return annotations;
 
 	}

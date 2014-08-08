@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import com.esprit.smarthome.devices.Device;
+
 @Local
 public interface IOntoProcessor {
 
-	public List<String> ontoQuery(String queryParam);
+	public List<String> ontoQuery(Device device);
 
 	public List<String> getAllAnnotations();
 

@@ -123,7 +123,16 @@ public class DeviceProcessor implements IDeviceProcessor {
 				device.setDeviceUDN(eElement
 						.getElementsByTagName("wsdp:SerialNumber").item(0)
 						.getTextContent());
-				device.setDeviceType("typo");
+				List<String> cats = new ArrayList<String>();
+				for (int j = 0; j < eElement.getElementsByTagName(
+						"wsdp:category").getLength(); j++) {
+					cats.add(eElement.getElementsByTagName("wsdp:category")
+							.item(j).getTextContent());
+				}
+				// // List<String> deva = device.getDeviceAnnotations();
+				// // deva.addAll(cats);
+				device.setDeviceAnnotations(cats);
+				device.setDeviceType("");
 
 			}
 

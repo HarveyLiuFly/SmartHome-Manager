@@ -100,7 +100,6 @@ public class DeviceAnnotator implements IDeviceAnnotator {
 		init(srcfile);
 		root = (Element) document.getElementsByTagName("device").item(0);
 		Node categories = root.getElementsByTagName("categories").item(0);
-		System.out.println(categories);
 		for (String value : values) {
 			Element category = (Element) categories.appendChild(document
 					.createElement("category"));
@@ -133,7 +132,6 @@ public class DeviceAnnotator implements IDeviceAnnotator {
 		root = (Element) document.getElementsByTagName("wsdp:ThisModel")
 				.item(0);
 		Node categories = root.getElementsByTagName("wsdp:categories").item(0);
-		System.out.println(categories);
 		for (String value : values) {
 			Element category = (Element) categories.appendChild(document
 					.createElement("wsdp:category"));

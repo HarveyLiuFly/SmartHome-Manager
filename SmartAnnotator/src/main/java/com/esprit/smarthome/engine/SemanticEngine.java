@@ -1,5 +1,6 @@
 package com.esprit.smarthome.engine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -21,7 +22,6 @@ import com.esprit.smarthome.util.PathFinder;
 
 @Stateless
 public class SemanticEngine implements ISemanticEngine {
-	List<String> anno;
 	@EJB
 	IDeviceProcessor idp;
 	@EJB
@@ -32,6 +32,7 @@ public class SemanticEngine implements ISemanticEngine {
 	IFileUtil ifp;
 	@EJB
 	IRulesProcessor irp;
+	List<String> anno = new ArrayList<String>();
 	private PathFinder p = new PathFinder();
 	private static final Log log = LogFactory.getLog(SemanticEngine.class);
 
@@ -43,12 +44,13 @@ public class SemanticEngine implements ISemanticEngine {
 			log.info("filepath:" + filepath);
 			Device device = idp.parseDevice(filepath);
 			log.info(device);
-			if (iop.ontoQuery(device.getDeviceType()).isEmpty())
-				anno = irp.getAnnotationList(device);
-			else
-				anno = iop.ontoQuery(device.getDeviceType());
+			anno.addAll(irp.getAnnotationList(device));
+			anno.addAll(iop.ontoQuery(device));
 			log.info(anno);
-			ida.addAnnotation(anno, filepath);
+			if (device.getDeviceProtocol().equals("UPnP"))
+				ida.addAnnotation(anno, filepath);
+			else if (device.getDeviceProtocol().equals("DPWS"))
+				ida.addDPWSAnnotation(anno, filepath);
 		}
 		push();
 

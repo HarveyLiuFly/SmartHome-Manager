@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.esprit.smarthome.devices.Device;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -60,10 +61,11 @@ public class OntoProcessor implements IOntoProcessor {
 
 	}
 
-	public List<String> ontoQuery(String queryParam) {
+	public List<String> ontoQuery(Device device) {
 		init();
-		String queryString = "select DISTINCT ?bth where {dog:" + queryParam
-				+ " rdf:type ?bth. " + " FILTER (!isBlank(?bth))}";
+		String queryString = "select DISTINCT ?bth where {dog:"
+				+ device.getDeviceType() + " rdf:type ?bth. "
+				+ " FILTER (!isBlank(?bth))}";
 		String query = RDFPREFIX + RDFSPREFIX + XSDPREFIX + OWLPREFIX
 				+ BASEPREFIX + queryString;
 		Query queryObject = QueryFactory.create(query);
@@ -75,7 +77,6 @@ public class OntoProcessor implements IOntoProcessor {
 		}
 		qe.close();
 		myAnnotations.removeAll(Arrays.asList(stopwords));
-		log.info("My Annotations: " + myAnnotations);
 		return myAnnotations;
 
 	}
