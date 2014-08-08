@@ -51,13 +51,16 @@ public class SemanticEngine implements ISemanticEngine {
 				ida.addAnnotation(anno, filepath);
 			else if (device.getDeviceProtocol().equals("DPWS"))
 				ida.addDPWSAnnotation(anno, filepath);
+			anno = new ArrayList<String>();
+
 		}
 		push();
 
 	}
 
-	public void manualProcess(List<String> annotations, String udn) {
-		ida.updateAnnotation(annotations, ifp.getFileByUDN(udn));
+	public void manualProcess(List<String> annotations, String udn,
+			String protocol) {
+		ida.updateAnnotation(annotations, ifp.getFileByUDN(udn), protocol);
 		// iop.addIndividual("TV", "Plasma");
 	}
 

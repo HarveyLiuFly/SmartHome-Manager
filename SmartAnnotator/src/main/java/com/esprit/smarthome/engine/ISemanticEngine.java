@@ -9,6 +9,7 @@ public interface ISemanticEngine {
 
 	public void autoProcess();
 
-	public void manualProcess(List<String> annotations, String udn);
+	public void manualProcess(List<String> annotations, String udn,
+			String protocol);
 
 }

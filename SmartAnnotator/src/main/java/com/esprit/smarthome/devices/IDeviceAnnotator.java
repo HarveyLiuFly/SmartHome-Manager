@@ -11,10 +11,9 @@ public interface IDeviceAnnotator {
 
 	public void removeAnnotation(String tag, String srcfile);
 
-	public void updateAnnotation(List<String> values, String srcfile);
+	public void updateAnnotation(List<String> values, String srcfile,
+			String protocol);
 
 	public void addDPWSAnnotation(List<String> tags, String srcfile);
-
-	public void updateDPWSAnnotation(List<String> values, String srcfile);
 
 }

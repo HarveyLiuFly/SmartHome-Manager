@@ -44,7 +44,7 @@ public class FileUtil implements IFileUtil {
 		File afile = new File(filepath);
 		String tf = name + ".xml";
 		if (tf.contains("uuid"))
-			copyFile(afile, new File(p.tempPath() + tf.split(":")[1]));
+			copyFile(afile, new File(p.tempPath() + tf.replaceAll("uuid:", "")));
 		else
 			copyFile(afile, new File(p.tempPath() + tf));
 	}
@@ -58,7 +58,7 @@ public class FileUtil implements IFileUtil {
 	}
 
 	public String getFileByUDN(String udn) {
-		String filepath = "C:\\sem\\annotated\\" + udn.split(":")[1] + ".xml";
+		String filepath = "C:\\sem\\annotated\\" + udn + ".xml";
 		return filepath;
 
 	}

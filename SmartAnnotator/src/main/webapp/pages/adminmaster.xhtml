@@ -6,7 +6,6 @@
 		
 		<h:form id="mmaster">
 		<p:growl id="growl" showDetail="true" sticky="false" /> 		
-<!--        <p:poll interval="10" listener="#{devicesBean.poll()}" update=":mmaster growl" /> -->
 		<p:dataTable
 		value="#{devicesBean.devices}" 
 		widgetVar="devTable"
@@ -17,14 +16,11 @@
 		rows="10"
 		rowKey="#{dev.deviceUDN}"
 		emptyMessage="No Devices Found"
-		selectionMode="single" 
-		selection="#{devicesBean.device}"
 		>
 		
 			<f:facet name="header">
 			<h:outputText value="Devices" />
 			</f:facet>
-			<p:ajax event="rowSelect" listener="#{devicesBean.onRowSelect}" update=":details" />
 			<p:column headerText="Protocol" sortBy="#{dev.deviceProtocol}" emptyMessage="No Devices Found"
 			styleClass="protocol">
 				<h:outputText value="#{dev.deviceProtocol}" />

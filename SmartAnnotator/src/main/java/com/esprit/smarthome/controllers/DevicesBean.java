@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.primefaces.event.SelectEvent;
 
 import com.esprit.smarthome.devices.Device;
 import com.esprit.smarthome.devices.IDeviceProcessor;
@@ -81,18 +80,14 @@ public class DevicesBean implements Serializable {
 	}
 
 	public void doEdit() {
-		System.out.println(device);
 		showDetails = true;
 	}
 
 	public void doAnnotate() {
 		System.out.println(selectAnnotations);
-		ise.manualProcess(selectAnnotations, device.getDeviceUDN());
+		ise.manualProcess(selectAnnotations, device.getDeviceUDN(),
+				device.getDeviceProtocol());
 		selectAnnotations = new ArrayList<String>();
-		devices = idp.getAllDevices();
-	}
-
-	public void poll() {
 		devices = idp.getAllDevices();
 	}
 
@@ -107,10 +102,6 @@ public class DevicesBean implements Serializable {
 
 	public void setShowDetails(boolean showDetails) {
 		this.showDetails = showDetails;
-	}
-
-	public void onRowSelect(SelectEvent event) {
-		showDetails = true;
 	}
 
 }

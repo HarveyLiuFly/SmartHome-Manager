@@ -78,7 +78,7 @@ public class DeviceProcessor implements IDeviceProcessor {
 						.getElementsByTagName("manufacturer").item(0)
 						.getTextContent());
 				device.setDeviceUDN(eElement.getElementsByTagName("UDN")
-						.item(0).getTextContent());
+						.item(0).getTextContent().replaceAll("uuid:", ""));
 				List<String> cats = new ArrayList<String>();
 				for (int j = 0; j < eElement.getElementsByTagName("category")
 						.getLength(); j++) {

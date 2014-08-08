@@ -37,7 +37,6 @@ public class DeviceAnnotator implements IDeviceAnnotator {
 			document = documentBuilder.parse(srcfile);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			;
 		}
 
 	}
@@ -96,14 +95,27 @@ public class DeviceAnnotator implements IDeviceAnnotator {
 
 	}
 
-	public void updateAnnotation(List<String> values, String srcfile) {
+	public void updateAnnotation(List<String> values, String srcfile,
+			String protocol) {
 		init(srcfile);
-		root = (Element) document.getElementsByTagName("device").item(0);
-		Node categories = root.getElementsByTagName("categories").item(0);
-		for (String value : values) {
-			Element category = (Element) categories.appendChild(document
-					.createElement("category"));
-			category.appendChild(document.createTextNode(value));
+		if (protocol.equals("UPnP")) {
+			root = (Element) document.getElementsByTagName("device").item(0);
+			Node categories = root.getElementsByTagName("categories").item(0);
+			for (String value : values) {
+				Element category = (Element) categories.appendChild(document
+						.createElement("category"));
+				category.appendChild(document.createTextNode(value));
+			}
+		} else if (protocol.equals("DPWS")) {
+			root = (Element) document.getElementsByTagName("wsdp:ThisModel")
+					.item(0);
+			Node categories = root.getElementsByTagName("wsdp:categories")
+					.item(0);
+			for (String value : values) {
+				Element category = (Element) categories.appendChild(document
+						.createElement("wsdp:category"));
+				category.appendChild(document.createTextNode(value));
+			}
 		}
 		writeToFile(srcfile);
 
@@ -127,17 +139,4 @@ public class DeviceAnnotator implements IDeviceAnnotator {
 		}
 	}
 
-	public void updateDPWSAnnotation(List<String> values, String srcfile) {
-		init(srcfile);
-		root = (Element) document.getElementsByTagName("wsdp:ThisModel")
-				.item(0);
-		Node categories = root.getElementsByTagName("wsdp:categories").item(0);
-		for (String value : values) {
-			Element category = (Element) categories.appendChild(document
-					.createElement("wsdp:category"));
-			category.appendChild(document.createTextNode(value));
-		}
-		writeToFile(srcfile);
-
-	}
 }
