@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+		
+		<h:form id="details">
+		<p:panelGrid columns="2" cellpadding="5" rendered="#{devicesBean.showDetails}" columnClasses="column1,column2">
+	    <p:outputLabel value="ID" />
+        <p:outputLabel value="#{devicesBean.device.deviceUDN}" />
+        <p:outputLabel value="Protocol" />
+        <p:outputLabel value="#{devicesBean.device.deviceProtocol}" />
+        <p:outputLabel value="FriendlyName" />
+        <p:outputLabel value="#{devicesBean.device.deviceFriendlyName}" />
+          <p:outputLabel value="Model" />
+        <p:outputLabel value="#{devicesBean.device.deviceModel}" />
+        <p:outputLabel value="Manufacturer" />
+        <p:outputLabel value="#{devicesBean.device.deviceManufacturer}" />
+        <p:outputLabel value="Type" />
+        <p:outputLabel value="#{devicesBean.device.deviceType}" />
+        <p:outputLabel value="Category"/>
+        <p:selectOneMenu>
+        <f:selectItems value="#{devicesBean.device.deviceAnnotations}"/>
+        </p:selectOneMenu>  
+        <p:outputLabel value="Annotations"/>              
+        <p:selectCheckboxMenu label="Annotations" value="#{devicesBean.selectAnnotations}" filter="true" filterMatchMode="contains">
+        <f:selectItems value="#{devicesBean.annotations}"></f:selectItems>
+        </p:selectCheckboxMenu>
+        <h:outputLabel value="" />
+        <p:commandButton value="Annotate" action="#{devicesBean.doAnnotate()}" update=":mmaster :details"/>
+        </p:panelGrid>
+	</h:form>
+</ui:composition>

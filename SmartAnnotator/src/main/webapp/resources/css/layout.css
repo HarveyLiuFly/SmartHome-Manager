@@ -1,0 +1,41 @@
+body{
+	background-color: aqua;
+}
+.protocol{
+	background-color: red;
+	width:16px;
+	font-weight: bold;
+		
+}
+.friendly{
+		background-color: green;
+}
+.model{
+		background-color: blue;
+}
+.type{
+	background-color: black;
+}
+.ui-panelgrid td {
+    background-color: black !important;
+    width:390px;
+    border-style: none !important
+}
+.north{	
+	text-align:center;
+	font-weight:bold;
+	font-size:22px;
+}
+.footer{
+	text-align: center;
+	color:yellow !important;
+}
+.column1{
+	color:yellow;
+	font-weight: bold;
+	width:20px;
+}
+.column2{
+	color:white;
+}
+

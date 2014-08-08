@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+		
+		<h:form id="mmaster">
+		<p:growl id="growl" showDetail="true" sticky="false" /> 		
+<!--        <p:poll interval="10" listener="#{devicesBean.poll()}" update=":mmaster growl" /> -->
+		<p:dataTable
+		value="#{devicesBean.devices}" 
+		widgetVar="devTable"
+		var="dev"
+		border="1" 
+		paginator="true"
+		paginatorPosition="bottom"
+		rows="10"
+		rowKey="#{dev.deviceUDN}"
+		emptyMessage="No Devices Found"
+		selectionMode="single" 
+		selection="#{devicesBean.device}"
+		>
+		
+			<f:facet name="header">
+			<h:outputText value="Devices" />
+			</f:facet>
+			<p:ajax event="rowSelect" listener="#{devicesBean.onRowSelect}" update=":details" />
+			<p:column headerText="Protocol" sortBy="#{dev.deviceProtocol}" emptyMessage="No Devices Found"
+			styleClass="protocol">
+				<h:outputText value="#{dev.deviceProtocol}" />
+				</p:column>
+			<p:column headerText="Name" sortBy="#{dev.deviceFriendlyName}"
+			styleClass="friendly">
+				<h:outputText value="#{dev.deviceFriendlyName}" />
+			</p:column>
+			<p:column headerText="Model" sortBy="#{dev.deviceModel}"
+			styleClass="model">
+				<h:outputText value="#{dev.deviceModel}" />
+			</p:column>
+			<p:column headerText="Type" sortBy="#{dev.deviceType}"
+			styleClass="type">
+				<h:outputText value="#{dev.deviceType}" />
+			</p:column>
+		<p:column >
+		<p:commandButton icon="ui-icon-wrench" action="#{devicesBean.doEdit()}" process="@all" update=":details">
+        <f:setPropertyActionListener value="#{dev}" target="#{devicesBean.device}" />
+        </p:commandButton> 
+		</p:column>
+	</p:dataTable>
+	 <p:remoteCommand process="@this" name="lazyload" update=":mmaster" actionListener="#{devicesBean.notif()}" />
+</h:form>
+<p:socket onMessage="lazyload" channel="/counter" />
+</ui:composition>
